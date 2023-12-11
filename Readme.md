@@ -1,6 +1,7 @@
 ## Description
 
 Bridge Backend version 2.0 built with NestJS + Prisma + PostgreSQL
+
 ## Installation
 
 ```bash
