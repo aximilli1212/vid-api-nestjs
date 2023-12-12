@@ -9,3 +9,47 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Status {
+  ACTIVE
+  INACTIVE
+}
+
+model User {
+  id              Int       @id @default(autoincrement())
+  email           String    @unique
+  name            String
+  status          Status?   @default(ACTIVE)
+  phoneNumbers    String[]
+  avatarImageUrl  String?
+  companyId       String?
+  rights          String[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  companies       Company[] @relation("userToCompany")
+  activeCompany   Company?  @relation("userToActiveCompany", fields: [activeCompanyId], references: [id])
+  activeCompanyId Int?      @unique
+}
+
+model Company {
+  id             Int      @id @default(autoincrement())
+  address        String
+  city           String
+  country        String
+  name           String
+  latitude       Float?
+  longitude      Float?
+  detailContent  String?
+  foundingYear   String?
+  geohash        String?
+  geopointLat    Float?
+  geopointLong   Float?
+  headerImageUrl String?
+  logoImageUrl   String?
+  totalEmployees Int?
+  dynamicLink    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  users          User[]   @relation("userToCompany")
+  activeUser     User?    @relation("userToActiveCompany")
+}

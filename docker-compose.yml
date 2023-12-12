@@ -1,0 +1,43 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:10
+    container_name: bridge_pdb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: aximilli1212
+      POSTGRES_PASSWORD: aximilli1212
+      POSTGRES_DB: bridge
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bridge_backend
+    environment:
+      - PORT=${PORT}
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    volumes:
+      - ./src:/app/src
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: bridge_pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@bridge.com
+      - PGADMIN_DEFAULT_PASSWORD=pgadmin4
+    ports:
+      - '5050:80'
+    depends_on:
+        - postgres
+
+volumes:
+  postgres_data:
