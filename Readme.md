@@ -33,3 +33,6 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
+
+## Prisma setup 
+   1. Setup instructions for Prisma can be found [here](https://docs.nestjs.com/recipes/prisma#set-up-prisma)
