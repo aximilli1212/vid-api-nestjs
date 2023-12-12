@@ -30,12 +30,11 @@ async function bootstrap() {
                     return accumulator
                 }, {})
                 console.log('formattedErrors123', formattedErrors)
-                // return formatted errors being an object with properties mapping to errors
                 throw new BadRequestException(formattedErrors)
             },
         })
     )
-    await app.listen(3000)
+    await app.listen(8900)
 }
 
 bootstrap()

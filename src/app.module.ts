@@ -5,6 +5,12 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
 import { ConfigModule } from '@nestjs/config'
+import { UserService } from './user/user.service'
+import { UserResolver } from './user/user.resolver'
+import { UserModule } from './user/user.module'
+import { CompanyService } from './company/company.service'
+import { CompanyModule } from './company/company.module'
+import { PrismaService } from './prisma.service'
 
 @Module({
     imports: [
@@ -17,8 +23,16 @@ import { ConfigModule } from '@nestjs/config'
             context: ({ req, res }) => ({ req, res }),
         }),
         ConfigModule.forRoot({}),
+        UserModule,
+        CompanyModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [
+        AppService,
+        UserService,
+        UserResolver,
+        CompanyService,
+        PrismaService,
+    ],
 })
 export class AppModule {}
