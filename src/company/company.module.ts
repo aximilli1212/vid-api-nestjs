@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { CompanyResolver } from './company.resolver';
+import { Module } from '@nestjs/common'
+import { CompanyResolver } from './company.resolver'
 
 @Module({
-  providers: [CompanyResolver]
+    providers: [CompanyResolver],
 })
 export class CompanyModule {}
