@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:)]680x/pz?=>IQ<r@/bridge-public:europe-west3:bridge-dev-db"
+  url      = "postgresql://postgres:)]680x/pz?=>IQ<r@/bridge-public:europe-west3:bridge-dev-db/bridge"
 }
 
 enum Status {
