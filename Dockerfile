@@ -29,6 +29,12 @@ FROM node:18-alpine As build
 
 WORKDIR /usr/src/app
 
+# Set environment variables
+# Read env from file
+ARG ENV_FILE
+ENV DATABASE_URL=$DATABASE_URL
+ENV PORT=$PORT
+
 COPY --chown=node:node package*.json ./
 
 # In order to run `npm run build` we need access to the Nest CLI which is a dev dependency. In the previous development stage we ran `npm ci` which installed all dependencies, so we can copy over the node_modules directory from the development image

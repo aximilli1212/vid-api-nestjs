@@ -30,11 +30,13 @@
     "start:db": "yarn run migrate:up && yarn run prisma:generate && yarn run seed",
     "seed": "prisma db seed",
     "postinstall": "yarn run prisma:generate",
-    "docker:migrate": "docker compose -f docker-compose.migrate.yml up -d",
-    "docker:db": "docker compose -f docker-compose.db.yml up -d",
-    "docker:seed": "docker exec -it nest-api npm run seed",
+    "docker:seed": "docker exec -it bridge_api npm run seed",
     "docker": "docker compose up -d",
-    "docker:build": "docker compose build"
+    "docker:build": "docker build -t bridge_api .",
+    "docker:stop": "docker compose down",
+    "docker:run:container": "docker run -d -p 8100:3000 --name=bridge_api bridge_api",
+    "docker:remove": "docker rm -f bridge_api",
+    "gcp:deploy": "gcloud run deploy --source ."
   },
   "dependencies": {
     "@apollo/server": "^4.9.5",
