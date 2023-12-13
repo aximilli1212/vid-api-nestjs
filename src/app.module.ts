@@ -22,7 +22,7 @@ import { PrismaService } from './prisma.service'
             introspection: true,
             context: ({ req, res }) => ({ req, res }),
         }),
-        ConfigModule.forRoot({}),
+        ConfigModule.forRoot({ cache: true }),
         UserModule,
         CompanyModule,
     ],

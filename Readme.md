@@ -36,3 +36,5 @@ $ yarn run test:cov
 
 ## Prisma setup 
    1. Setup instructions for Prisma can be found [here](https://docs.nestjs.com/recipes/prisma#set-up-prisma)
+
+$npm set-script prepare "" && npm ci --only=production
