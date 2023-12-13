@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://bridgeadmin:bridge@DmIn88/34.107.31.35:5432/bridge"
+  url      = "postgres://gfqdrdbb:ugiUtV-J0GpNqBcajNYFkg4HVFTRbKIE@flora.db.elephantsql.com/gfqdrdbb"
 }
 
 enum Status {
