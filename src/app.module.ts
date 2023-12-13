@@ -11,6 +11,8 @@ import { UserModule } from './user/user.module'
 import { CompanyService } from './company/company.service'
 import { CompanyModule } from './company/company.module'
 import { PrismaService } from './prisma.service'
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -25,6 +27,7 @@ import { PrismaService } from './prisma.service'
         ConfigModule.forRoot({ cache: true }),
         UserModule,
         CompanyModule,
+        AuthModule,
     ],
     controllers: [AppController],
     providers: [
@@ -33,6 +36,7 @@ import { PrismaService } from './prisma.service'
         UserResolver,
         CompanyService,
         PrismaService,
+        AuthService,
     ],
 })
 export class AppModule {}
