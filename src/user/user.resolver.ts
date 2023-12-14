@@ -1,6 +1,9 @@
-import { Query, Resolver, Mutation } from '@nestjs/graphql'
+import { Args, Context, Query, Resolver, Mutation } from '@nestjs/graphql'
+import { BadRequestException, UseFilters, UseGuards } from '@nestjs/common';
 import {UserService} from "./user.service";
 import {AuthService} from "../auth/auth.service";
+import {RegisterResponse} from "../auth/types";
+import {RegisterDto} from "../auth/dto";
 
 @Resolver()
 export class UserResolver {
