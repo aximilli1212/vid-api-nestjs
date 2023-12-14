@@ -2,8 +2,10 @@ import { Args, Context, Query, Resolver, Mutation } from '@nestjs/graphql'
 import { BadRequestException, UseFilters, UseGuards } from '@nestjs/common';
 import {UserService} from "./user.service";
 import {AuthService} from "../auth/auth.service";
-import {RegisterResponse} from "../auth/types";
-import {RegisterDto} from "../auth/dto";
+import {LoginResponse, RegisterResponse} from "../auth/types";
+import {LoginDto, RegisterDto} from "../auth/dto";
+import {User} from "./user.model";
+import { Response, Request } from 'express';
 
 @Resolver()
 export class UserResolver {
@@ -58,7 +60,6 @@ export class UserResolver {
         return this.authService.logout(context.res);
     }
 
-    @UseGuards(GraphqlAuthGuard)
     @Query(() => String)
     getProtectedData() {
         return 'This is protected data';
@@ -72,45 +73,47 @@ export class UserResolver {
             throw new BadRequestException(error.message);
         }
     }
-    @UseGuards(GraphqlAuthGuard)
-    @Mutation(() => User)
-    async updateUserProfile(
-        @Context()
-            context: { req: Request },
-        @Args('fullname', { type: () => String, nullable: true }) fullname?: string,
-        @Args('bio', { type: () => String, nullable: true }) bio?: string,
-        @Args('image', { type: () => GraphQLUpload, nullable: true })
-            image?: GraphQLUpload,
-    ) {
-        console.log('image!', image, 'fullname!', fullname, 'bio!', bio);
-        let imageUrl;
-        if (image) {
-            imageUrl = await this.storeImageAndGetURL(image);
-        }
-        return this.userService.updateProfile(context.req.user.sub, {
-            fullname,
-            bio,
-            image: imageUrl,
-        });
-    }
 
     @Query(() => [User])
     async getUsers() {
         return this.userService.getUsers();
     }
 
-    private async storeImageAndGetURL(file: GraphQLUpload): Promise<string> {
-        const { createReadStream, filename } = await file;
-        const fileData = await file;
-        console.log('fileData!', fileData);
+    // @Mutation(() => User)
+    // async updateUserProfile(
+    //     @Context()
+    //         context: { req: Request },
+    //     @Args('fullname', { type: () => String, nullable: true }) fullname?: string,
+    //     @Args('bio', { type: () => String, nullable: true }) bio?: string,
+    //     @Args('image', { type: () => GraphQLUpload, nullable: true })
+    //         image?: GraphQLUpload,
+    // ) {
+    //     console.log('image!', image, 'fullname!', fullname, 'bio!', bio);
+    //     let imageUrl;
+    //     if (image) {
+    //         imageUrl = await this.storeImageAndGetURL(image);
+    //     }
+    //     return this.userService.updateProfile(context.req.user.sub, {
+    //         fullname,
+    //         bio,
+    //         image: imageUrl,
+    //     });
+    // }
 
-        const uniqueFilename = `${uuidv4()}_${filename}`;
-        const imagePath = join(process.cwd(), 'public', uniqueFilename);
-        const imageUrl = `${process.env.APP_URL}/${uniqueFilename}`;
-        const readStream = createReadStream();
-        readStream.pipe(createWriteStream(imagePath));
 
-        return imageUrl; // Return the appropriate URL where the file can be accessed
-    }
+
+    // private async storeImageAndGetURL(file: GraphQLUpload): Promise<string> {
+    //     const { createReadStream, filename } = await file;
+    //     const fileData = await file;
+    //     console.log('fileData!', fileData);
+    //
+    //     const uniqueFilename = `${uuidv4()}_${filename}`;
+    //     const imagePath = join(process.cwd(), 'public', uniqueFilename);
+    //     const imageUrl = `${process.env.APP_URL}/${uniqueFilename}`;
+    //     const readStream = createReadStream();
+    //     readStream.pipe(createWriteStream(imagePath));
+    //
+    //     return imageUrl; // Return the appropriate URL where the file can be accessed
+    // }
 
 }

@@ -1,40 +1,27 @@
-import { Field, ObjectType } from '@nestjs/graphql'
-import { Company } from '../company/company.model'
+import { Field, ObjectType } from '@nestjs/graphql';
+
 @ObjectType()
 export class User {
     @Field()
-    id?: number
+    id?: number;
 
     @Field()
-    email?: string
+    fullname: string;
 
     @Field()
-    name: string
+    email?: string;
+    @Field({ nullable: true })
+    bio?: string;
 
     @Field({ nullable: true })
-    status?: string
-
-    @Field(() => [String], { nullable: true })
-    phoneNumbers?: string[]
-
-    @Field({ nullable: true })
-    avatarImageUrl?: string
-
-    @Field({ nullable: true })
-    companyId?: string
-
-    @Field(() => [String], { nullable: true })
-    rights?: string[]
+    image: string;
 
     @Field()
-    createdAt: Date
+    password: string;
 
     @Field()
-    updatedAt: Date
+    createdAt: Date;
 
-    @Field(() => [Company], { nullable: true })
-    companies?: Company[]
-
-    @Field(() => Company, { nullable: true })
-    activeCompany?: Company
+    @Field()
+    updatedAt: Date;
 }
