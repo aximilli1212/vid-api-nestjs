@@ -37,6 +37,6 @@ async function bootstrap() {
         }),
     );
     app.useGlobalFilters(new GraphQLErrorFilter());
-    await app.listen(3001);
+    await app.listen(4500);
 }
 bootstrap();
