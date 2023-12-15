@@ -17,19 +17,19 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: bridge_backend
-    environment:
-      - PORT=${PORT}
-    ports:
-      - '3000:3000'
-    depends_on:
-      - postgres
-    volumes:
-      - ./src:/app/src
+#  app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: bridge_backend
+#    environment:
+#      - PORT=${PORT}
+#    ports:
+#      - '3000:3000'
+#    depends_on:
+#      - postgres
+#    volumes:
+#      - ./src:/app/src
 
   pgadmin:
     image: dpage/pgadmin4
